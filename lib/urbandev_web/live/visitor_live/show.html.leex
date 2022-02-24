@@ -1,0 +1,78 @@
+<h1>Show Visitor</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, UrbandevWeb.VisitorLive.FormComponent,
+    id: @visitor.id,
+    title: @page_title,
+    action: @live_action,
+    visitor: @visitor,
+    return_to: Routes.visitor_show_path(@socket, :show, @visitor) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Visiting:</strong>
+    <%= @visitor.visiting %>
+  </li>
+
+
+
+  <li>
+    <strong>Serial:</strong>
+    <%= @visitor.serial %>
+  </li>
+
+  <li>
+    <strong>Phone:</strong>
+    <%= @visitor.phone %>
+  </li>
+
+  <li>
+    <strong>Names:</strong>
+    <%= @visitor.names %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= @visitor.time %>
+  </li>
+
+  <li>
+    <strong>Nationalid:</strong>
+    <%= @visitor.nationalid %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @visitor.description %>
+  </li>
+
+  <li>
+    <strong>Active:</strong>
+    <%= @visitor.active %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @visitor.type %>
+  </li>
+  <li>
+    <%= if is_nil(@visitor.image) || @visitor.image |> String.trim() == ""  do %>
+
+    <% else %>
+        <%= for url <- Poison.decode!(@visitor.image) do %>
+        <h5 class="card-title ">
+          <strong>Image of staff:</strong>
+
+        </h5>
+          <img src ='<%= url %>' width = '' height= '150' >
+        <% end %>
+    <% end %>
+  </li>
+
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.visitor_show_path(@socket, :edit, @visitor), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.visitor_index_path(@socket, :index) %></span>

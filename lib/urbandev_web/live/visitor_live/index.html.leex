@@ -1,0 +1,105 @@
+
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Visitor</li>
+                </ol>
+            </div>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+          <%= if @current_user.role == "user" do %>
+
+          <% else %>
+          <div class="col-md-12">
+            <span><%= live_patch "New Visitor", to: Routes.visitor_index_path(@socket, :new),style: "color:white;", class: "btn btn-success fa fa-plus "%></span>
+
+          </div>
+          <% end %>
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, UrbandevWeb.VisitorLive.FormComponent,
+    id: @visitor.id || :new,
+    title: @page_title,
+    action: @live_action,
+    visitor: @visitor,
+    residents: @residents,
+      user: @current_user,
+    return_to: Routes.visitor_index_path(@socket, :index) %>
+<% end %>
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-block">
+            <h4 class="card-title">List of the visitors</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Serial</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>National Id</th>
+        <th>Type </th>
+      <th>Visiting</th>
+      <th>Time</th>
+      <th>Status</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="visitor">
+    <%= for visitor <- @visitor_collection do %>
+      <tr id="visitor-<%= visitor.id %>" <%= if visitor.__meta__.state == :deleted do %> style ="display: none" <% end %>>
+        <td><%= visitor.serial%> </td>
+        <td><%= visitor.names  %></td>
+        <td><%= visitor.phone %></td>
+        <td><%= visitor.nationalid %></td>
+        <td><%= visitor.type %></td>
+        <td><%= visitor.res.firstname %> <%= visitor.res.lastname %>(<%= visitor.res.housenumber %>)</td>
+        <td><%= visitor.time%> </td>
+
+
+        <%= if visitor.active == "true" do %>
+          <td style= "background:#66bb6a; display:table-cell;color:#f5f5f5 !important" class="btn">Inside</i></td>
+        <% else  %>
+        <td style= " display:table-cell;color:#f44336 !important" class="btn btn-warning">Outside</i></td>
+        <% end %>
+        <td>
+          <!-- <span  rel="tooltip" title="View Task" style="font-size: 20px;">
+              <span><%= live_redirect "", to: Routes.visitor_show_path(@socket, :show, visitor), class: "fa fa-search-plus" ,style: "color:#00bcd4 !important"  %></span>
+
+          </span> -->
+
+           <span  rel="tooltip" title="Edit Task" style="font-size: 20px;">
+               <span><%= live_patch "", to: Routes.visitor_index_path(@socket, :edit, visitor), class: "fa fa-pencil-square" ,style: "color:#66bb6a !important"  %></span>
+
+          </span>
+          <span  rel="tooltip" title="Delete Task" style="font-size: 20px;">
+                <span><%= link "", to: "#", phx_click: "delete", phx_value_id: visitor.id, data: [confirm: "Are you sure?"] ,  class: "fa fa-trash", style: "color:#f44336 !important"%></span>
+
+         </span>
+
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+</div>
+<!-- Row -->

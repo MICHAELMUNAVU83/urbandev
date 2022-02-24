@@ -1,0 +1,43 @@
+<h1>Show Realestate</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, UrbandevWeb.RealestateLive.FormComponent,
+    id: @realestate.id,
+    title: @page_title,
+    action: @live_action,
+    realestate: @realestate,
+    list_city: @list_city,
+    return_to: Routes.realestate_show_path(@socket, :show, @realestate) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Country:</strong>
+    <%= @realestate.country %>
+  </li>
+
+  <li>
+    <strong>County:</strong>
+    <%= @realestate.county %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @realestate.description %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @realestate.status %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @realestate.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.realestate_show_path(@socket, :edit, @realestate), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.realestate_index_path(@socket, :index) %></span>

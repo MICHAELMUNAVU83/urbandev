@@ -1,0 +1,124 @@
+
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+
+                    <li class="breadcrumb-item active">View</li>
+                </ol>
+            </div>
+
+        </div>
+
+<div class="row">
+ <div class="col-md-12">
+  <span><%= live_patch "Edit", to: Routes.staff_show_path(@socket, :edit, @staff), class: "button" %></span>
+  <span><%= live_redirect "Back", to: Routes.staff_index_path(@socket, :index), class: "button" %></span>
+</div>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, UrbandevWeb.StaffLive.FormComponent,
+    id: @staff.id,
+    title: @page_title,
+    action: @live_action,
+    staff: @staff,
+    estate: @estate,
+    return_to: Routes.staff_show_path(@socket, :show, @staff) %>
+<% end %>
+
+
+<div class="col-lg-12 col-xlg-12 col-md-7">
+    <div class="card">
+
+                <div class="card-block">
+
+
+
+                    <h5 class="card-title ">
+                      <strong>Firstname:</strong>
+                      <%= @staff.firstname %>
+                    </h5>
+
+                      <h5 class="card-title ">
+                      <strong>Lastname:</strong>
+                      <%= @staff.lastname %>
+                    </h5>
+
+                      <h5 class="card-title ">
+                      <strong>Email:</strong>
+                      <%= @staff.email %>
+                    </h5>
+
+                      <h5 class="card-title ">
+                      <strong>Estate:</strong>
+                      <%= @staff.estate %>
+                    </h5>
+
+                      <h5 class="card-title ">
+                      <strong>Phone:</strong>
+                      <%= @staff.phone %>
+                    </h5>
+
+                    <h5 class="card-title ">
+                      <strong>Passcode:</strong>
+                      <%= @staff.passcode %>
+                    </h5>
+
+                      <h5 class="card-title ">
+                      <strong>Title:</strong>
+                      <%= @staff.title %>
+                    </h5>
+
+                      <h5 class="card-title ">
+                      <strong>Dob:</strong>
+                      <%= @staff.dob %>
+                    </h5>
+
+
+
+                      <h5 class="card-title ">
+                      <strong>Residence:</strong>
+                      <%= @staff.residence %>
+                    </h5>
+
+                    <h5 class="card-title ">
+                      <strong>Nationalid:</strong>
+                      <%= @staff.nationalid %>
+                    </h5>
+
+                      <h5 class="card-title ">
+                      <strong>Description:</strong>
+                      <%= @staff.description %>
+                    </h5>
+
+                    <%= if is_nil(@staff.image) || @staff.image |> String.trim() == ""  do %>
+
+                    <% else %>
+                        <%= for url <- Poison.decode!(@staff.image) do %>
+                        <h5 class="card-title ">
+                          <strong>Image of staff:</strong>
+
+                        </h5>
+                          <img src ='<%= url %>' width = '' height= '150' >
+                        <% end %>
+                    <% end %>
+                      <%= if @staff.active == "true" do %>
+                        <h5>Status - <span class="" style= "color:#66bb6a !important">Active</span></td>
+                      <% else  %>
+                      <h5>Status - <span class="  " style= "color:#f44336 !important">Inactive</span></td>
+                      <% end %>
+
+
+
+
+
+
+                </div>
+
+
+    </div>
+</div>
+
+
+</div>

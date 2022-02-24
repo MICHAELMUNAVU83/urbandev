@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <%= csrf_meta_tag() %>
+  <%= live_title_tag assigns[:page_title] || "Urbandev", suffix: " · Framework" %>
+
+  <!-- <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet"> -->
+    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/login.css") %>">
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/font-awesome.min.css") %>">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Core CSS -->
+    <link href="<%= Routes.static_path(@conn, "/css/bootstrap.css") %>" rel="stylesheet">
+    <!-- chart js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
+
+
+    <!--This page css - Morris CSS -->
+    <link href="<%= Routes.static_path(@conn, "/css/Chart.min.css") %>" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="<%= Routes.static_path(@conn, "/css/style.css") %>" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="<%= Routes.static_path(@conn, "/css/blue.css") %>" id="theme" rel="stylesheet">
+
+    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+      <script language="javascript" type="text/javascript">
+  function timeMsg(){
+
+    window.setTimeout("clearMsg()",5000);//10secs
+
+  }
+
+  //
+
+  function clearMsg(){
+
+    document.getElementById("hideMsg").innerHTML = "";
+
+  }
+</script>
+
+</head>
+
+<body onLoad = "timeMsg()"  class="fix-header fix-sidebar card-no-border">
+
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  </head>
+
+
+<main role="main" class="" style="background-image: url('http://0.0.0.0:4000/images/3.png');">
+    <div id ="hideMsg">
+  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+</div>
+  <%= @inner_content %>
+</main>
+
+</div>
+
+<script src="<%= Routes.static_path(@conn, "/js/jquery.min.js") %>"></script>
+<script src="<%= Routes.static_path(@conn, "/js/bootstrap.min.js") %>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="<%= Routes.static_path(@conn, "/js/jquery.slimscroll.js") %>"></script>\
+<!--Wave Effects -->
+<script src="<%= Routes.static_path(@conn, "/js/waves.js") %>"></script>
+<!--Menu sidebar -->
+<script src="<%= Routes.static_path(@conn, "/js/sidebarmenu.js") %>"></script>
+<!--stickey kit -->
+<script src="<%= Routes.static_path(@conn, "/js/sticky-kit.min.js") %>"></script>
+<!--Custom JavaScript -->
+<script src="<%= Routes.static_path(@conn, "/js/custom.min.js") %>"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
+
+<!-- chart js cdnjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
+
+<script>
+
+// $(document).ready(function() {
+// $('.single_select').select2({
+//   tags: "true",
+//
+//   allowClear: true
+// });
+// });
+
+var ctx = document.getElementById('myChart').getContext('2d');
+// var ctx2 = document.getElementById('myChart2').getContext('2d');
+var myChart = new Chart(ctx, {
+type: 'bar',
+data: {
+        labels: ['monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        datasets: [
+          {
+     label: 'Residents',
+     data: [12, 19, 3, 5, 2, 3, 7],
+     backgroundColor: 'rgba(255, 99, 132, 1)',
+     borderWidth: 0
+ },
+ {
+       label: 'Visitors',
+       data: [13, 2, 5, 3, 19, 12, 5],
+       backgroundColor: 'rgba(54, 162, 235, 1)',
+       // 'rgba(54, 162, 235, 1)',
+       // 'rgba(255, 206, 86, 1)',
+       // 'rgba(75, 192, 192, 1)',
+       // 'rgba(153, 102, 255, 1)',
+       // 'rgba(255, 159, 64, 1)'
+       borderWidth: 0
+   }]
+},
+options: {
+    scales: {
+        xAxes: [{
+            stacked: true
+        }],
+        yAxes: [{
+            stacked: true
+        }]
+    }
+}
+});
+
+
+var myChart2 = new Chart(ctx2, {
+type: 'doughnut',
+data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        hoverBackgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 0
+    }]
+},
+options: {
+
+
+}
+});
+
+
+$(document).ready(function() {
+$('.single_select').select2({
+  tags: "true",
+
+  allowClear: true
+});
+});
+
+</script>
+
+</body>
+</html>

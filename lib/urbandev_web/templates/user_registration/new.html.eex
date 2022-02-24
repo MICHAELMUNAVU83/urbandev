@@ -1,0 +1,79 @@
+
+  <main class="d-flex align-items-center ">
+    <div class="container">
+      <div class="card login-card" style="background:white;opacity: 0.97;">
+        <div class="row">
+          <div class="col-md-5">
+            <img src="<%= Routes.static_path(@conn, "/images/esto1.jpg") %>" style="margin-top:100px;width: 100%;height: auto;"  alt="login" class="login-card-img"/>
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <!-- <div class="brand-wrapper">
+                <img src="<%= Routes.static_path(@conn, "/images/logo.svg") %>" alt="logo" class="logo">
+              </div> -->
+              <p class="login-card-description">Register with us</p>
+              <%= form_for @changeset, Routes.user_registration_path(@conn, :create), fn f -> %>
+                <%= if @changeset.action do %>
+                  <div class="alert alert-danger">
+                    <p>Oops, something went wrong! Please check the errors below.</p>
+                  </div>
+                <% end %>
+
+                <div class="form-group">
+                  <label for="fn" class="sr-only">First name</label>
+                  <%= text_input f, :firstname, class: "form-control" , placeholder: "Enter First name",required: true%>
+                  <%= error_tag f, :firstname %>
+
+                </div>
+                <div class="form-group">
+                  <label for="ln" class="sr-only">Last name</label>
+                  <%= text_input f, :lastname, class: "form-control", placeholder: "Enter Last name",required: true%>
+                  <%= error_tag f, :lastname %>
+
+                </div>
+                <div class="form-group">
+                  <%= label f, :email , class: "sr-only"%>
+                  <%= email_input f, :email,class: "form-control" , placeholder: "Enter email address", required: true %>
+                    <div class="alert alert-danger"><%= error_tag f, :email %></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="company" class="sr-only">Company</label>
+                  <%= text_input f, :company,class: "form-control" ,  placeholder: "Enter company name", required: true%>
+                  <div class="alert alert-danger"><%= error_tag f, :company %></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone" class="sr-only">Phone</label>
+                  <%= number_input f, :phone,class: "form-control" ,  placeholder: "254711222333",required: true%>
+                  <div class="alert alert-danger"><%= error_tag f, :phone %></div>
+                </div>
+                <div class="form-group">
+                  <label for="location" class="sr-only">location</label>
+                <%= select f, :location, @list_city, class: "single_select", style: "width:100%;", title: "Choose item" , required: true %>
+                </div>
+
+
+                <div class="form-group">
+                <%= label f, :password , class: "sr-only"%>
+                <%= password_input f, :password,class: "form-control" , placeholder: "Enter your Password", required: true %>
+                  <div class="alert alert-danger"><%= error_tag f, :password %></div>
+              </div>
+                 <%= submit "Register" ,class: "btn btn-block login-btn mb-4", style: "font-size:13.5px;"%>
+
+                <% end %>
+                <%= link "Back to login?", to: Routes.user_session_path(@conn, :new), class: "forgot-password-link" %>
+
+                <p class="login-card-footer-text">Don't have an account?<%= link "Register here", to: Routes.user_registration_path(@conn, :new), class: "text-reset" %> </p>
+
+                <nav class="login-card-footer-nav">
+                  <a href="#!">Terms of use.</a>
+                  <a href="#!">Privacy policy</a>
+                </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>

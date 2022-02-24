@@ -1,0 +1,86 @@
+
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Scans</li>
+                </ol>
+            </div>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+          <%= if @current_user.role == "user" do %>
+
+          <% else %>
+          <div class="col-md-12">
+            <span><%= live_patch "New scan", to: Routes.scan_index_path(@socket, :new),style: "color:white;", class: "btn btn-success fa fa-plus "%></span>
+
+          </div>
+          <% end %>
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, UrbandevWeb.ScanLive.FormComponent,
+    id: @scan.id || :new,
+    title: @page_title,
+    action: @live_action,
+    scan: @scan,
+      user: @current_user,
+    return_to: Routes.scan_index_path(@socket, :index) %>
+<% end %>
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-block">
+            <h4 class="card-title">List of the scans</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Serial(person)</th>
+      <th>Type</th>
+      <th>Serial(car)</th>
+      <th>User type</th>
+      <th>Date</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="scans">
+    <%= for scan <- @scans do %>
+      <tr id="scan-<%= scan.id %>" >
+        <td><%= scan.serial1%> </td>
+        <td><%= scan.type  %></td>
+        <td><%= scan.serial2 %></td>
+        <td><%= scan.usertype %></td>
+        <td><%= scan.inserted_at%> </td>
+
+        <td>
+
+          <span><%= link "", to: "#", phx_click: "delete", phx_value_id: scan.id, data: [confirm: "Are you sure?"],  class: "fa fa-close", style: "color:#f44336 !important" %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+</div>
+<!-- Row -->
+
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->

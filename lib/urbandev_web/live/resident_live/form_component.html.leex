@@ -1,0 +1,155 @@
+<div class="page-wrapper">
+
+    <div class="container-fluid">
+
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "resident-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+
+  <div class="row">
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="reg" class="form">First name</label>
+      <%= text_input f, :firstname,class: "form-control" , placeholder: "Enter first name",required: "required"%>
+      <%= error_tag f, :firstname %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="reg" class="form">Last name</label>
+      <%= text_input f, :lastname,class: "form-control" , placeholder: "Enter last name",required: "required"%>
+      <%= error_tag f, :lastname %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="reg" class="form">National ID</label>
+      <%= email_input f, :email, class: "form-control" , placeholder: "Email Address",required: "required"%>
+      <%= error_tag f, :email %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="reg" class="form">Phone</label>
+      <%= text_input f, :phone, class: "form-control" , placeholder: "Phone number",required: "required"%>
+      <%= error_tag f, :phone %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="reg" class="form">Occupation</label>
+      <%= text_input f, :occupation, class: "form-control" , placeholder: "Occupation",required: "required"%>
+      <%= error_tag f, :occupation %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="reg" class="form">ID number</label>
+      <%= text_input f, :idnumber, class: "form-control" , placeholder: "ID number",required: "required"%>
+      <%= error_tag f, :idnumber %>
+    </div>
+  </div>
+
+
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="res" class="form">visiting</label>
+        <%= select f, :estate, @estate, class: "single_select", style: "width:100%;", title: "Choose item" , required: "required"%>
+
+      <%= error_tag f, :estate %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="res" class="form">visiting</label>
+        <%= text_input f, :housenumber, class: "form-control", style: "width:100%;", placeholder: "Enter house number" , required: "required"%>
+
+      <%= error_tag f, :housenumber %>
+      </div>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="res" class="form">visiting</label>
+        <%= select f, :status, [Married: "Married", Single: "Single"], class: "single_select", style: "width:100%;", title: "Choose item" , required: "required"%>
+      <%= error_tag f, :status %>
+      </div>
+    </div>
+
+
+  <div class="col-md-12">
+    <div class="form-group">
+      <label for="desc" class="form">Description</label>
+      <%= textarea f, :description,  placeholder: "If married how many kids and pets ", class: "form-control" %>
+      <%= error_tag f, :description %>
+    </div>
+  </div>
+
+
+
+
+
+
+      <div class="col-md-12">
+        <div class="form-group">
+       <%= label f, :"Upload a photo", class: "form-group"%>
+        <%= live_file_input @uploads.photo %>
+      </div>
+      </div>
+        <%= for {_ref, msg} <- @uploads.photo.errors do %>
+        <p class="alert alert-danger"> <%= Phoenix.Naming.humanize(msg) %></p>
+        <% end %>
+    <div class="row">
+        <%= for entry <- @uploads.photo.entries do %>
+
+
+            <div class="col-md-3">
+            <div class="">
+              <%= live_img_preview entry, height: 100%>
+            </div>
+            <div class="">
+              <progress max="100" value="<%= entry.progress %>"/>
+            </div>
+            <div class="">
+              <h4><a href="#" phx-click="cancel-entry" phx-value-ref="<%= entry.ref %>" phx-target="<%= @myself%>">Cancel</a></h4>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+        <%= label f, :"Active", class: "form-group" %> 	&nbsp;	&nbsp;
+        <%= checkbox f, :active , class: "material-inputs chk-col-red"%>
+    </div>
+   <%= error_tag f, :active %>
+  </div>
+
+
+
+  <div class="col-md-10">
+    <div class="form-group">
+    <%= submit "Submit", class: "btn btn-info", phx_disable_with: "Saving..."  %>
+  </div>
+    </div>
+
+  </div>
+
+</form>
+</div>
+</div>

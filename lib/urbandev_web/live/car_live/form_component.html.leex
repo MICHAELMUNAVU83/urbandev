@@ -1,0 +1,99 @@
+<div class="page-wrapper">
+
+    <div class="container-fluid">
+
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "car-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+
+
+    <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="form">Registartion</label>
+        <%= text_input f, :regno,class: "form-control" , placeholder: "Enter car registration",required: "required"%>
+        <%= error_tag f, :regno %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="res" class="form">Resident</label>
+        <!-- <%= text_input f, :resident,class: "form-control" , placeholder: "choose resident",required: "required"%> -->
+        <%= select f, :resident, @residents, class: "single_select", style: "width:100%;", title: "Choose item" , required: "required"%>
+      <%= error_tag f, :resident %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="type" class="form">Type</label>
+        <%= text_input f, :type ,class: "form-control" , placeholder: "Honda, toyota, bmw....",required: "required"%>
+        <%= error_tag f, :type %>
+      </div>
+    </div>
+
+
+
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="desc" class="form">Description</label>
+        <%= textarea f, :description,  placeholder: "Extra description", class: "form-control" %>
+        <%= error_tag f, :description %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+          <%= label f, :"Status   ", class: "form-group" %> 	&nbsp;	&nbsp;
+          <%= checkbox f, :active , class: "form-group"%>
+      </div>
+     <%= error_tag f, :active %>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+     <%= label f, :"Upload a photo", class: "form-group"%>
+      <%= live_file_input @uploads.photo %>
+    </div>
+    </div>
+      <%= for {_ref, msg} <- @uploads.photo.errors do %>
+      <p class="alert alert-danger"> <%= Phoenix.Naming.humanize(msg) %></p>
+      <% end %>
+  <div class="row">
+      <%= for entry <- @uploads.photo.entries do %>
+
+
+          <div class="col-md-3">
+          <div class="">
+            <%= live_img_preview entry, height: 100%>
+          </div>
+          <div class="">
+            <progress max="100" value="<%= entry.progress %>"/>
+          </div>
+          <div class="">
+            <h4><a href="#" phx-click="cancel-entry" phx-value-ref="<%= entry.ref %>" phx-target="<%= @myself%>">Cancel</a></h4>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+
+    <div class="col-md-10">
+      <div class="form-group">
+      <%= submit "Submit", class: "btn btn-info" , phx_disable_with: "Saving..." %>
+    </div>
+      </div>
+
+    </div>
+
+</form>
+
+</div>
+</div>

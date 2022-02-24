@@ -1,0 +1,180 @@
+
+
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+
+        <!-- Row -->
+        <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div
+                                        class="round round-lg text-white d-inline-block text-center rounded-circle bg-info">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <div class="ml-2 align-self-center">
+                                        <h3 class="mb-0 font-weight-light"><%= @residents %></h3>
+                                        <h5 class="text-muted mb-0">Total Residents</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div
+                                        class="round round-lg text-white d-inline-block text-center rounded-circle bg-warning">
+                                        <i class="fa fa-users "></i></div>
+                                    <div class="ml-2 align-self-center">
+                                        <h3 class="mb-0 font-weight-light"><%= @visitors %></h3>
+                                        <h5 class="text-muted mb-0">Total Visitors</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div
+                                        class="round round-lg text-white d-inline-block text-center rounded-circle bg-primary">
+                                        <i class="fa fa-building"></i></div>
+                                    <div class="ml-2 align-self-center">
+                                        <h3 class="mb-0 font-weight-light"><%= @accounts %></h3>
+                                        <h5 class="text-muted mb-0">Total Staff</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div
+                                        class="round round-lg text-white d-inline-block text-center rounded-circle bg-danger">
+                                        <i class="fa fa-car"></i></div>
+                                    <div class="ml-2 align-self-center">
+                                        <h3 class="mb-0 font-weight-light"><%= @cars %></h3>
+                                        <h5 class="text-muted mb-0">Total Cars</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+
+                </div>
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-md-12">
+                        <div class="card blog-widget">
+                            <div class="card-body">
+                                <div class="blog-image"><img src="<%= Routes.static_path(@socket, "/images/3.png") %>" alt="img"
+                                        class="img-fluid blog-img-height w-100" /></div>
+                                <h3>Business development new rules for 2020</h3>
+                                <label class="badge badge-pill badge-success py-1 px-2">Technology</label>
+                                <p class="my-3">
+                                    Lorem ipsum dolor sit amet, this is a consectetur adipisicing elit, sed do eiusmod
+                                    tempor incididunt ut
+                                </p>
+                                <div class="d-flex mt-1">
+                                    <div class="read"><a href="javascript:void(0)" class="link font-medium">Read
+                                            More</a></div>
+                                    <div class="ml-auto">
+                                        <a href="javascript:void(0)" class="link mr-2 " data-toggle="tooltip"
+                                            title="Like"><i class="mdi mdi-heart-outline"></i></a> <a
+                                            href="javascript:void(0)" class="link" data-toggle="tooltip"
+                                            title="Share"><i class="mdi mdi-share-variant"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <div class="col-lg-8 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex flex-wrap">
+                                    <div>
+                                        <h3 class="card-title">Estate Movement overview</h3>
+                                        <!-- <h6 class="card-subtitle">Residents Vs Visitors</h6> -->
+                                       </div>
+                                    <div class="ml-auto">
+                                        <ul class="list-inline">
+                                            <!-- <li>
+                                                <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Residents</h6> </li>
+                                            <li>
+                                                <h6 class="text-muted  text-info"><i class="fa fa-circle font-10 m-r-10"></i>Vistors</h6> </li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:-15px;">
+                              <canvas id="myChart" width="750" height="401"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!-- <div class="col-lg-4 col-md-5">
+                <div class="card">
+                    <div class="card-block">
+                        <h3 class="card-title">Movement </h3>
+                        <h6 class="card-subtitle">Different</h6>
+
+                        <canvas id="myChart2" width="300" height="400"></canvas>
+                        <progress id="animationProgress" max="1" value="0" style="width: 100%"></progress>
+                    </div>
+                    <div>
+                        <hr class="m-t-0 m-b-0">
+                    </div>
+                    <div class="card-block text-center ">
+                        <ul class="list-inline m-b-0">
+                            <li>
+                                <h6 class="text text-info"><i class="fa fa-circle font-10 m-r-10 "></i>Resident</h6> </li>
+                            <li>
+                                <h6 class="text-muted  text-primary"><i class="fa fa-circle font-10 m-r-10"></i>Resident with car</h6> </li>
+                            <li>
+                                <h6 class="text-muted  text-success"><i class="fa fa-circle font-10 m-r-10"></i>Visitor</h6> </li>
+                            <li>
+                                <h6 class="text-muted  text-success"><i class="fa fa-circle font-10 m-r-10"></i>Visitor with car</h6> </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>  -->
+        </div>
+        <!-- Row -->
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->

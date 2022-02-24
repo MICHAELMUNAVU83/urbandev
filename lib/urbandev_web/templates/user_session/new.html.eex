@@ -1,0 +1,56 @@
+
+  <main class="d-flex align-items-center ">
+    <div class="container">
+      <div class="card login-card" style="background:white;opacity: 0.97;">
+        <div class="row">
+          <div class="col-md-5">
+            <img src="<%= Routes.static_path(@conn, "/images/jasusi.png") %>" style="width: 285px;height: auto;margin-left:145px;margin-top:145px;"  alt="login" class="login-card-img"/>
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <div class="brand-wrapper">
+                <!-- <img src="<%= Routes.static_path(@conn, "/images/logo.svg") %>" alt="logo" class="logo"> -->
+              </div>
+              <p class="login-card-description">Sign into your account</p>
+
+              <%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user], fn f -> %>
+                <%= if @error_message do %>
+                  <div class="alert alert-danger">
+                    <p><%= @error_message %></p>
+                  </div>
+                <% end %>
+              <div class="form-group">
+                <%= label f, :email , class: "sr-only"%>
+                <%= email_input f, :email,class: "form-control" , placeholder: "Enter email address", required: true %>
+                  <div class="alert alert-danger"><%= error_tag f, :email %></div>
+              </div>
+                <div class="form-group">
+                <%= label f, :password , class: "sr-only"%>
+                <%= password_input f, :password,class: "form-control" , placeholder: "Enter your Password", required: true %>
+                  <div class="alert alert-danger"><%= error_tag f, :password %></div>
+              </div>
+                <%= label f, :remember_me, "Keep me logged in for 60 days" %>
+                <%= checkbox f, :remember_me %>
+
+                <div>
+                  <%= submit "Log in" %>
+                </div>
+              <% end %>
+
+
+
+                <%= link "Forgot password?", to: Routes.user_reset_password_path(@conn, :new), class: "forgot-password-link" %>
+
+                <p class="login-card-footer-text">Don't have an account?<%= link "Register here", to: Routes.user_registration_path(@conn, :new), class: "text-reset" %> </p>
+
+                <nav class="login-card-footer-nav">
+                  <a href="#!">Terms of use.</a>
+                  <a href="#!">Privacy policy</a>
+                </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>

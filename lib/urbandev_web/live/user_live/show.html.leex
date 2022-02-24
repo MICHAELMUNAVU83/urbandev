@@ -1,0 +1,87 @@
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript:void(0)">users</a></li>
+            <li class="breadcrumb-item active">view user</li>
+        </ol>
+    </div>
+
+</div>
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, UrbandevWeb.UserLive.FormComponent,
+    id: @user.id,
+    title: @page_title,
+    action: @live_action,
+    user: @user,
+    list_city: @list_city,
+    return_to: Routes.user_show_path(@socket, :show, @user) %>
+<% end %>
+
+<span><%= live_redirect "Back", to: Routes.user_index_path(@socket, :index),  class: " btn btn-info btn-md btn-rounded"%></span>
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+
+
+<div class="row">
+<!-- Column -->
+<div class="col-lg-4 col-xlg-3 col-md-5">
+<!-- Column -->
+<div class="card">
+    <img class="card-img-top" style="height:200px;" src="<%= Routes.static_path(@socket, "/images/esto1.jpg") %>" alt="Card image cap">
+    <div class="card-block little-profile text-center">
+      <%= if is_nil(@user.image) || @user.image |> String.trim() == ""  do %>
+      <div class="pro-img"><img src="<%= Routes.static_path(@socket, "/images/urbandev.png") %>" alt="users" /></div>
+
+      <% else %>
+          <%= for url <- Poison.decode!(@user.image) do %>
+
+          <div class="pro-img"><img src="<%=url %>" alt="users" /></div>
+
+          <% end %>
+      <% end %>
+        <h3 class="m-b-0"><%= @user.firstname %> <%= @user.lastname %></h3>
+        <p><%= @user.company %></p>
+        <!-- <%= link "Edit", to: Routes.user_show_path(@socket, :edit, @user), class: "btn btn-success btn-md btn-rounded"  %> -->
+        <%= link "Settings", to: Routes.user_settings_path(@socket, :edit), class: " btn btn-info btn-md btn-rounded"  %>
+
+        <!-- <div class="row text-center m-t-20">
+            <div class="col-lg-4 col-md-4 m-t-20">
+                <h3 class="m-b-0 font-light">1099</h3><small>House #</small></div>
+            <div class="col-lg-4 col-md-4 m-t-20">
+                <h3 class="m-b-0 font-light">23,469</h3><small>Married</small></div>
+            <div class="col-lg-4 col-md-4 m-t-20">
+                <h3 class="m-b-0 font-light">6035</h3><small>cars</small></div>
+        </div> -->
+    </div>
+</div>
+
+</div>
+<div class="col-lg-8 col-xlg-9 col-md-7">
+<div class="card">
+
+            <div class="card-block">
+
+                    <h5 class="card-title">Email:  <%= @user.email %></h5>
+                    <h5 class="card-title ">Phone:  <%= @user.phone %></h5>
+                    <%= if is_nil @user.city do %>
+                    <h5>N/A</h5>
+                    <% else %>
+                    <h5 class="card-title ">location:  <%= @user.city.city %> (<%= @user.city.county %> county)</h5>
+                    <% end %>
+
+                    <%= if @user.active == "true" do %>
+                      <h5>Status - <span class="" style= "color:#66bb6a !important">Active</span></td>
+                    <% else  %>
+                    <h5>Status - <span class="  " style= "color:#f44336 !important">Inactive</span></td>
+                    <% end %>
+
+
+            </div>
+
+
+</div>
+</div>
+</div>

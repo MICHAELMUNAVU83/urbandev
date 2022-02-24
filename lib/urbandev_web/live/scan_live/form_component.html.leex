@@ -1,0 +1,67 @@
+<div class="page-wrapper">
+
+    <div class="container-fluid">
+
+ 
+<h2><%= @title %></h2>
+<%= f = form_for @changeset, "#",
+  id: "scan-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+  <div class="row">
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="reg" class="form">Serial</label>
+      <%= text_input f, :serial1,class: "form-control" , placeholder: "Serial of person",required: "required"%>
+      <%= error_tag f, :serial1 %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="res" class="form">Type</label>
+      <%= select f, :type,["Walk-ins": "Walk-ins", Driving: "Driving"], class: "single_select", style: "width:100%;", title: "Choose item" , required: "required"%>
+
+    <%= error_tag f, :type %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="reg" class="form">Serial of car if driving</label>
+      <%= text_input f, :serial2, class: "form-control" , placeholder: "Serial of car(if driving)"%>
+      <%= error_tag f, :serial2 %>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="reg" class="form">User type</label>
+      <%= select f, :usertype,["Resident": "Residdent", Visitor: "Visitor"], class: "single_select", style: "width:100%;", title: "Choose item" , required: "required"%>
+
+      <%= error_tag f, :usertype %>
+    </div>
+  </div>
+
+
+
+
+  <div class="col-md-10">
+    <div class="form-group">
+    <%= submit "Submit", class: "btn btn-info" , phx_disable_with: "Saving..."  %>
+  </div>
+    </div>
+
+  </div>
+
+
+</form>
+
+</div>
+</div>

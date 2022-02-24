@@ -1,0 +1,103 @@
+<% alias Urbandev.Cars%>
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Residents</li>
+                </ol>
+            </div>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+
+          <div class="col-md-12">
+            <span><%= live_patch "New resident", to: Routes.resident_index_path(@socket, :new),style: "color:white;", class: "btn btn-success fa fa-plus "%></span>
+
+          </div>
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, UrbandevWeb.ResidentLive.FormComponent,
+    id: @resident.id || :new,
+    title: @page_title,
+    action: @live_action,
+    resident: @resident,
+    estate: @estate,
+    user: @current_user,
+    return_to: Routes.resident_index_path(@socket, :index) %>
+<% end %>
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-block">
+            <h4 class="card-title">List of the resident</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Names</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Estate/ Hse #</th>
+      <th>Cars</th>
+      <th>Status</th>
+      <th>actions</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="residents">
+    <%= for resident <- @residents do %>
+      <tr id="resident-<%= resident.id %>" <%= if resident.__meta__.state == :deleted do %> style ="display: none" <% end %>>
+        <td><%= resident.firstname %> <%= resident.lastname %> </td>
+        <td><%= resident.phone  %></td>
+        <td><%= resident.email %></td>
+        <td><%= resident.esto.name %>/<%= resident.housenumber %></td>
+        <td><%= Cars.get_car_user_count(resident.id) %></td>
+
+
+        <%= if resident.active == "true" do %>
+          <td style= "color:#66bb6a !important"><i class= "fa fa-check"></i></td>
+        <% else  %>
+        <td style= "color:#f44336 !important"><i class= "fa fa-close"></i></td>
+        <% end %>
+        <td class="text-right">
+                                                    <span  rel="tooltip" title="View Task" style="font-size: 24px;">
+                                                        <span ><%= live_redirect "",  to: Routes.resident_show_path(@socket, :show, resident), class: "fa fa-info-circle" ,style: "color:#00bcd4 !important" %></span>
+                                                    </span>
+
+                                                     <span  rel="tooltip" title="Edit Task" style="font-size: 24px;">
+                                                        <span ><%= live_patch "", to: Routes.resident_index_path(@socket, :edit, resident), class: "fa fa-pencil-square" ,style: "color:#66bb6a !important" %></span>
+                                                    </span>
+                                                    <span  rel="tooltip" title="Delete Task" style="font-size: 24px;">
+                                                        <span><%= link "",to: "#", method: :delete, phx_click: "delete", phx_value_id: resident.id, data: [confirm: "Are you sure?"],  class: "fa fa-close", style: "color:#f44336 !important" %></span>
+                                                   </span>
+
+  </td>
+
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+</div>
+<!-- Row -->
+
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->

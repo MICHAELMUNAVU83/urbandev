@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "606451370803",
+    "firebase_url": "https://afya-cloud.firebaseio.com",
+    "project_id": "afya-cloud",
+    "storage_bucket": "afya-cloud.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606451370803:android:432791cdc8ebe5d8",
+        "android_client_info": {
+          "package_name": "com.app.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606451370803-eimp9n7im4gpp3j6u6sb14gmlel031i6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVIknHV0EiqF5rCFehNVw8tEbrxUpMrOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606451370803-eimp9n7im4gpp3j6u6sb14gmlel031i6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606451370803:android:f6047291d42429025f4c46",
+        "android_client_info": {
+          "package_name": "com.example.estate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606451370803-eimp9n7im4gpp3j6u6sb14gmlel031i6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVIknHV0EiqF5rCFehNVw8tEbrxUpMrOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606451370803-eimp9n7im4gpp3j6u6sb14gmlel031i6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606451370803:android:98a839d6c34f1772",
+        "android_client_info": {
+          "package_name": "ke.co.bpg.www.hms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606451370803-eimp9n7im4gpp3j6u6sb14gmlel031i6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVIknHV0EiqF5rCFehNVw8tEbrxUpMrOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606451370803-eimp9n7im4gpp3j6u6sb14gmlel031i6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

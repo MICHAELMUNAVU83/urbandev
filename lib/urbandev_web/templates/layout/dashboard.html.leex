@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <%= csrf_meta_tag() %>
+  <%= live_title_tag assigns[:page_title] || "Urbandev", suffix: " · Framework" %>
+
+  <!-- <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet"> -->
+    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@socket, "/css/app.css") %>"/>
+  <link rel="stylesheet" href="<%= Routes.static_path(@socket, "/css/login.css") %>">
+  <link rel="stylesheet" href="<%= Routes.static_path(@socket, "/css/font-awesome.min.css") %>">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Core CSS -->
+    <link href="<%= Routes.static_path(@socket, "/css/bootstrap.css") %>" rel="stylesheet">
+    <!-- chart js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
+
+
+    <!--This page css - Morris CSS -->
+    <link href="<%= Routes.static_path(@socket, "/css/Chart.min.css") %>" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="<%= Routes.static_path(@socket, "/css/style.css") %>" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="<%= Routes.static_path(@socket, "/css/blue.css") %>" id="theme" rel="stylesheet">
+
+    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@socket, "/js/app.js") %>"></script>
+      <script language="javascript" type="text/javascript">
+  function timeMsg(){
+
+    window.setTimeout("clearMsg()",5000);//10secs
+
+  }
+
+  //
+
+  function clearMsg(){
+
+    document.getElementById("hideMsg").innerHTML = "";
+
+  }
+</script>
+
+</head>
+
+<body onLoad = "timeMsg()"  class="fix-header fix-sidebar card-no-border">
+
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  </head>
+
+
+<div id="main-wrapper">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <header class="topbar">
+        <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
+            <!-- ============================================================== -->
+            <!-- Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/dashboard">
+                    <!-- Logo icon --><b>
+                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+
+                        <!-- Light Logo icon -->
+                        <img src="<%= Routes.static_path(@socket, "/images/jasusi.png") %>" width= "75px"  alt="homepage" class="light-logo" />
+                    </b>
+                    <!--End Logo icon -->
+                    <!-- Logo text -->
+                  </a>
+                     <!-- Light Logo text -->
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-collapse">
+                <!-- ============================================================== -->
+                <!-- toggle and nav items -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav mr-auto mt-md-0">
+
+
+                    <!-- This is  -->
+
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
+                        <i class="fa fa-bars"></i>
+                      </a>
+                     </li>
+                    <!-- ============================================================== -->
+                    <!-- Search -->
+                    <!-- ============================================================== -->
+                    <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                        <form class="app-search">
+                            <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                    </li>
+                </ul>
+                <!-- ============================================================== -->
+                <!-- User profile and search -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav my-lg-0">
+
+                    <!-- ============================================================== -->
+                    <!-- Profile -->
+                    <!-- ============================================================== -->
+
+
+                    <li class="nav-item dropdown">
+                      <p class="nav-link"><%= @current_user.firstname %> <%= @current_user.lastname %></p>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <%= link "", to: Routes.user_session_path(@socket, :delete),method: "delete" ,class: "nav-link  fa fa-sign-out" ,"data-toggle": "tooltip" %>
+
+                      </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                  <li>
+                    <i class="fa fa-cubes" style="float: left;margin-top: 12px;"></i>
+                    <%= live_patch "Dashboard", to: Routes.dashboard_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+                 </li>
+                 <%= if @current_user.role == "admin" do  %>
+                   <li>
+                     <i class=" fa fa-user-md" style="float: left;margin-top: 12px;"></i>
+                     <%= live_patch "Residents", to: Routes.resident_index_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+
+                  </li>
+                  <% else %>
+                  <% end %>
+                  <li>
+                    <i class=" fa fa-user-md" style="float: left;margin-top: 12px;"></i>
+                    <%= live_patch "Bills", to: Routes.bill_index_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+
+                 </li>
+                  <li>
+                  <i class=" fa fa-users" style="float: left;margin-top: 12px;"></i>
+                  <%= live_patch "Visitor", to: Routes.visitor_index_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+                 </li>
+                 <li>
+                   <i class="fa fa-qrcode" style="float: left;margin-top: 12px;"></i>
+                   <%= live_patch "Scans", to: Routes.scan_index_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+                </li>
+                 <%= if @current_user.role == "admin" do  %>
+                <li>
+                <i class="fa fa-building" style="float: left;margin-top: 12px;"></i>
+                <%= live_patch "Estates", to: Routes.realestate_index_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+               </li>
+               <% else %>
+               <% end %>
+               <li>
+                 <i class="fa fa-car" style="float: left;margin-top: 12px;"></i>
+                 <%= live_patch "Cars", to: Routes.car_index_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+              </li>
+               <%= if @current_user.role == "admin" do  %>
+              <li>
+                <i class="fa fa-bell" style="float: left;margin-top: 12px;"></i>
+                <%= live_patch "Notifications", to: Routes.message_index_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+             </li>
+             <li>
+               <i class="fa fa-file-text" style="float: left;margin-top: 12px;"></i>
+               <%= live_patch "Staff", to: Routes.staff_index_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+             </li>
+             <li>
+               <i class="fa fa-users" style="float: left;margin-top: 12px;"></i>
+               <%= live_patch "Users", to: Routes.user_index_path(@socket, :index), class: "  waves-effect waves-dark"%>
+
+             </li>
+             <% else %>
+             <% end %>
+             <li>
+               <i class="fa fa-user" style="float: left;margin-top: 12px;"></i>
+               <%= live_redirect "My profile", to: Routes.user_show_path(@socket, :show, @current_user.id), class: "  waves-effect waves-dark"%>
+
+             </li>
+
+
+                </ul>
+                <div class="text-center m-t-30">
+                </div>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+        <!-- Bottom points-->
+        <div class="sidebar-footer">
+            <!-- item--><a href="" class="link" data-toggle="tooltip" title="faqs"><i class="fa fa-info"></i></a>
+
+
+            <%= link "", to: Routes.user_settings_path(@socket, :edit), title: "profile",class: "link fa fa-cog" ,"data-toggle": "tooltip" %>
+            <%= link "", to: Routes.user_session_path(@socket, :delete),method: "delete" , title: "sign out",class: "link fa fa-sign-out" ,"data-toggle": "tooltip" %>
+
+          </div>
+        <!-- End Bottom points-->
+    </aside>
+
+    <main role="main" class="">
+
+      <!-- ============================================================== -->
+      <!-- Page wrapper  -->
+      <!-- ============================================================== -->
+      <div class="page-wrapper">
+          <!-- ============================================================== -->
+          <!-- Container fluid  -->
+          <!-- ============================================================== -->
+          <div class="container-fluid">
+              <!-- ============================================================== -->
+              <!-- Bread crumb and right sidebar toggle -->
+              <!-- ============================================================== -->
+
+
+
+      <%= @inner_content %>
+
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </main>
+
+
+<!-- footer -->
+<!-- ============================================================== -->
+<footer class="footer"> © 2020 Powered by  </footer>
+<!-- ============================================================== -->
+<!-- End footer -->
+
+</div>
+
+<script src="<%= Routes.static_path(@socket, "/js/jquery.min.js") %>"></script>
+<script src="<%= Routes.static_path(@socket, "/js/bootstrap.min.js") %>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="<%= Routes.static_path(@socket, "/js/jquery.slimscroll.js") %>"></script>\
+<!--Wave Effects -->
+<script src="<%= Routes.static_path(@socket, "/js/waves.js") %>"></script>
+<!--Menu sidebar -->
+<script src="<%= Routes.static_path(@socket, "/js/sidebarmenu.js") %>"></script>
+<!--stickey kit -->
+<script src="<%= Routes.static_path(@socket, "/js/sticky-kit.min.js") %>"></script>
+<!--Custom JavaScript -->
+<script src="<%= Routes.static_path(@socket, "/js/custom.min.js") %>"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
+
+<!-- chart js cdnjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
+
+<script>
+
+// $(document).ready(function() {
+// $('.single_select').select2({
+//   tags: "true",
+//
+//   allowClear: true
+// });
+// });
+
+var ctx = document.getElementById('myChart').getContext('2d');
+// var ctx2 = document.getElementById('myChart2').getContext('2d');
+var myChart = new Chart(ctx, {
+type: 'bar',
+data: {
+        labels: ['monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        datasets: [
+          {
+     label: 'Residents',
+     data: [12, 19, 3, 5, 2, 3, 7],
+     backgroundColor: 'rgba(255, 99, 132, 1)',
+     borderWidth: 0
+ },
+ {
+       label: 'Visitors',
+       data: [13, 2, 5, 3, 19, 12, 5],
+       backgroundColor: 'rgba(54, 162, 235, 1)',
+       // 'rgba(54, 162, 235, 1)',
+       // 'rgba(255, 206, 86, 1)',
+       // 'rgba(75, 192, 192, 1)',
+       // 'rgba(153, 102, 255, 1)',
+       // 'rgba(255, 159, 64, 1)'
+       borderWidth: 0
+   }]
+},
+options: {
+    scales: {
+        xAxes: [{
+            stacked: true
+        }],
+        yAxes: [{
+            stacked: true
+        }]
+    }
+}
+});
+
+
+var myChart2 = new Chart(ctx2, {
+type: 'doughnut',
+data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        hoverBackgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 0
+    }]
+},
+options: {
+
+
+}
+});
+
+
+$(document).ready(function() {
+$('.single_select').select2({
+  tags: "true",
+
+  allowClear: true
+});
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<h1>Show Scan</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, UrbandevWeb.ScanLive.FormComponent,
+    id: @scan.id,
+    title: @page_title,
+    action: @live_action,
+    scan: @scan,
+    return_to: Routes.scan_show_path(@socket, :show, @scan) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Serial1:</strong>
+    <%= @scan.serial1 %>
+  </li>
+
+  <li>
+    <strong>Serial2:</strong>
+    <%= @scan.serial2 %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @scan.type %>
+  </li>
+
+  <li>
+    <strong>Usertype:</strong>
+    <%= @scan.usertype %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.scan_show_path(@socket, :edit, @scan), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.scan_index_path(@socket, :index) %></span>
