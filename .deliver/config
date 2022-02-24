@@ -1,10 +1,10 @@
 APP="urbandev"
 
-BUILD_HOST="example.com"
-BUILD_USER="kwach"
-BUILD_AT="/home/kwach/app_build"
+BUILD_HOST="138.68.96.78"
+BUILD_USER="root"
+BUILD_AT="/home/root/app_build"
 
-PRODUCTION_HOSTS="example.com" 
+PRODUCTION_HOSTS="138.68.96.78" 
 PRODUCTION_USER="root" 
 DELIVER_TO="/home/root/app_release" 
 
