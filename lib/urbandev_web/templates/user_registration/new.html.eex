@@ -4,12 +4,12 @@
       <div class="card login-card" style="background:white;opacity: 0.97;">
         <div class="row">
           <div class="col-md-5">
-            <img src="<%= Routes.static_path(@conn, "/images/esto1.jpg") %>" style="margin-top:100px;width: 100%;height: auto;"  alt="login" class="login-card-img"/>
+            <img src= "<%=Routes.static_path(@conn, "/images/datem_logo.png")  %>" style="margin-left:100px;margin-top:100px;width: 70%;height: auto;"  alt="login" class="login-card-img"/>
           </div>
           <div class="col-md-7">
             <div class="card-body">
               <!-- <div class="brand-wrapper">
-                <img src="<%= Routes.static_path(@conn, "/images/logo.svg") %>" alt="logo" class="logo">
+                <img src= "<%=Routes.static_path(@conn, "/images/logo.svg")  %>" alt="logo" class="logo">
               </div> -->
               <p class="login-card-description">Register with us</p>
               <%= form_for @changeset, Routes.user_registration_path(@conn, :create), fn f -> %>

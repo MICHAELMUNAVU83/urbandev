@@ -18,7 +18,7 @@ defmodule Urbandev.Realestates do
 
   """
   def list_realestates do
-   Repo.all(from q in Realestate, order_by: [desc: q.id])
+   Repo.all(from q in Realestate, order_by: [desc: q.id], preload: [:city])
   end
 
   def list_realestates_user(user) do

@@ -7,7 +7,11 @@ defmodule Urbandev.Visitors do
   alias Urbandev.Repo
 
   alias Urbandev.Visitors.Visitor
+  @topic "visitor"
 
+  def subscribe do
+    Phoenix.PubSub.subscribe(Urbandev.PubSub, @topic)
+  end
   @doc """
   Returns the list of visitor.
 
@@ -18,7 +22,7 @@ defmodule Urbandev.Visitors do
 
   """
   def list_visitor do
-       Repo.all(from q in Visitor, order_by: [desc: q.id])
+       Repo.all(from q in Visitor, order_by: [desc: q.id], preload: [:res])
   end
 
 
@@ -69,6 +73,13 @@ defmodule Urbandev.Visitors do
     |> Visitor.changeset(attrs)
     |> Repo.insert()
     |> after_save(after_save)
+  end
+
+  def create_visitor!(attrs \\ %{}) do
+    %Visitor{}
+    |> Visitor.changeset(attrs)
+    |> Repo.insert()
+    |> broadcast(:visitor_created)
   end
 
   @doc """
@@ -135,4 +146,13 @@ defmodule Urbandev.Visitors do
     )
 
   end
+
+  def broadcast({:ok, visitor}, event) do
+    Phoenix.PubSub.broadcast(Urbandev.PubSub, @topic, {event, visitor})
+
+    {:ok, visitor}
+  end
+
+  def broadcast({:error, _reason} = error, _event), do: error
+
 end

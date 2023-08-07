@@ -8,7 +8,13 @@ defmodule UrbandevWeb.VisitorLive.Index do
   @impl true
   def mount(_params, session, socket) do
       socket = assign_defaults(session, socket)
-    {:ok, assign(socket, :visitor_collection, list_visitor_user(socket.assigns.current_user))}
+      visitor =
+        if socket.assigns.current_user.role == "user" do
+          list_visitor_user(socket.assigns.current_user)
+        else
+          list_visitor()
+        end
+    {:ok, assign(socket, :visitor_collection, visitor)}
   end
 
   @impl true
@@ -49,7 +55,7 @@ defmodule UrbandevWeb.VisitorLive.Index do
      |> assign(:visitor_collection, list_visitor())
      |> push_redirect(to: Routes.visitor_index_path(socket, :index))
     }
-  
+
   end
 
   defp list_visitor do

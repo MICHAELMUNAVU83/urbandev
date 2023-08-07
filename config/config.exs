@@ -49,6 +49,7 @@ config :urbandev,
   keylock: "WFv3dqP7oC+Od1GxnQFKwkdyf0i6ipSiTfKtARYSQShO0BwcuvPDLOizPRIiUH"
 
 
+
   config :sendgrid,
     api_key: "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",
     api_key2: "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",
@@ -80,7 +81,15 @@ config :urbandev, UrbandevWeb.Endpoint,
     pdftk_path: "/usr/bin/pdftk",
     command_prefix: "/usr/bin/xvfb-run"
 
-
+    # Configure esbuild (the version is required)
+    config :esbuild,
+      version: "0.14.0",
+      default: [
+        args:
+          ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+        cd: Path.expand("../assets", __DIR__),
+        env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+      ]
 
                         config :urbandev, Urbandev.Scheduler,
                           jobs: [

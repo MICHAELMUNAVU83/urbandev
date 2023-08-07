@@ -1,0 +1,130 @@
+<div class="page-wrapper">
+
+    <div class="container-fluid">
+
+
+<h2><%= @title %></h2>
+
+<.form
+  let={f}
+  for={@changeset}
+  id= "user-form",
+  phx-target={@myself},
+  phx-change="validate",
+  phx-submit="save">
+
+
+    <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="sr-only">First name</label>
+        <%= text_input f, :firstname,class: "form-control" , placeholder: "First Name",required: "required"%>
+        <%= error_tag f, :firstname %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="sr-only">Last name</label>
+        <%= text_input f, :lastname, class: "form-control" , placeholder: "Last name",required: "required"%>
+        <%= error_tag f, :lastname %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="sr-only">Email address</label>
+        <%= text_input f, :email, class: "form-control" , placeholder: "email",required: "required"%>
+        <%= error_tag f, :email %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="sr-only">Company</label>
+        <%= text_input f, :company, class: "form-control" , placeholder: "Company",required: "required"%>
+        <%= error_tag f, :company %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="sr-only">Phone</label>
+        <%= text_input f, :phone, class: "form-control" , placeholder: "Phone",required: "required"%>
+        <%= error_tag f, :phone %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="res" class="sr-only">Location</label>
+        <%= select f, :location, @list_city, class: "single_select", style: "width:100%;", title: "Choose item" , required: "required"%>
+
+      <%= error_tag f, :location %>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="desc" class="sr-only">Description</label>
+        <%= textarea f, :description,  placeholder: "Extra description", class: "form-control" %>
+        <%= error_tag f, :description %>
+      </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+      <div class="form-group">
+          <%= label f, :"Status   ", class: "form-group" %> 	&nbsp;	&nbsp;
+          <%= checkbox f, :active , class: "material-inputs chk-col-red"%>
+      </div>
+     <%= error_tag f, :active %>
+    </div>
+
+
+
+        <div class="col-md-12">
+          <div class="form-group">
+         <%= label f, :"Upload a photo", class: "form-group"%>
+          <%= live_file_input @uploads.photo %>
+        </div>
+        </div>
+          <%= for {_ref, msg} <- @uploads.photo.errors do %>
+          <p class="alert alert-danger"> <%= Phoenix.Naming.humanize(msg) %></p>
+          <% end %>
+      <div class="row">
+          <%= for entry <- @uploads.photo.entries do %>
+
+
+              <div class="col-md-3">
+              <div class="">
+                <%= live_img_preview entry, height: 100%>
+              </div>
+              <div class="">
+                <progress max="100" value={ entry.progress }/>
+              </div>
+              <div class="">
+                <h4><a href="#" phx-click="cancel-entry" phx-value-ref={ entry.ref } phx-target={ @myself }>Cancel</a></h4>
+              </div>
+            </div>
+
+          <% end %>
+        </div>
+
+
+
+  <div class="col-md-10">
+    <div class="form-group">
+    <%= submit "Submit", class: "btn btn-info" , phx_disable_with: "Saving..."  %>
+  </div>
+    </div>
+
+  </div>
+
+
+  </.form>
+
+</div>
+</div>

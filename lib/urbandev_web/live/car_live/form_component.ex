@@ -2,6 +2,7 @@ defmodule UrbandevWeb.CarLive.FormComponent do
   use UrbandevWeb, :live_component
   alias Urbandev.Cars
   alias Urbandev.Cars.Car
+  @impl Phoenix.LiveView
 
   @impl true
   def mount(socket) do
@@ -54,7 +55,7 @@ defmodule UrbandevWeb.CarLive.FormComponent do
 
   defp save_car(socket, :new, car_params) do
       car = put_photo_url(socket, %Car{})
-    case  Cars.create_car(car, car_params|> Map.merge(%{"user_id" => socket.assigns.user.id}) , &consume_photos(socket, &1) ) do
+    case  IO.inspect Cars.create_car(car, car_params|> Map.merge(%{"user_id" => socket.assigns.user.id}) , &consume_photos(socket, &1) ) do
       {:ok, _car} ->
         {:noreply,
          socket
@@ -88,11 +89,13 @@ defmodule UrbandevWeb.CarLive.FormComponent do
     end
 
     defp consume_photos(socket, %Car{} = car ) do
+
       consume_uploaded_entries(socket, :photo, fn meta, entry ->
          destination = Path.join("priv/static/images/uploads", "#{entry.uuid}.#{ext(entry)}")
          File.cp!(meta.path, destination)
+         {:ok, Routes.static_path(socket, "/uploads/#{Path.basename(destination)}")}
       end)
-      {:ok, car}
+
     end
     def ext(entry) do
       [ext | _] = MIME.extensions(entry.client_type)

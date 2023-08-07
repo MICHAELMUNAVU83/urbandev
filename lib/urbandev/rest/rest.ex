@@ -75,7 +75,7 @@ def get_token() do
           "assertion" => jwt
           }
 
-  post("https://oauth2.googleapis.com/token", body: Jason.encode!(body), headers: header)
+  HTTPotion.post("https://oauth2.googleapis.com/token", body: Poison.encode!(body), headers: header)
   |> process_response()
 end
 
@@ -100,7 +100,7 @@ def send(token) do
 
   }
 
-  post(get_api_url(), body: Jason.encode!(body), headers: header)
+  post("https://fcm.googleapis.com/v1/projects/afya-cloud/messages:send", body: Jason.encode!(body), headers: header)
   |> process_response()
 end
 
@@ -150,7 +150,7 @@ def create_stream(bottles..stop) do
 def webtopic(topic,title,message) do
     HTTPotion.start()
     oauth = get_token()
-          {:ok, _second, %HTTPotion.Response{status_code: _status_code, body: result, headers: _headers}} = oauth
+          {:ok, _second, %HTTPotion.Response{status_code: _status_code, body: result, headers: _headers}} = IO.inspect oauth
           %{
             "access_token" => token,
             "expires_in" => _expire,

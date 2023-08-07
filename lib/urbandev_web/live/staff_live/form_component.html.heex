@@ -1,0 +1,169 @@
+<div class="page-wrapper">
+
+    <div class="container-fluid">
+
+<h2><%= @title %></h2>
+
+<.form
+  let={f}
+  for={@changeset}
+  id= "staff-form",
+  phx-target={@myself},
+  phx-change="validate",
+  phx-submit="save">
+
+    <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="form">First name</label>
+        <%= text_input f, :firstname,class: "form-control" , placeholder: "enter first name of staff",required: "required"%>
+        <%= error_tag f, :firstname %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="form">Last name</label>
+        <%= text_input f, :lastname,class: "form-control" , placeholder: "enter last name of staff",required: "required"%>
+        <%= error_tag f, :lastname %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="form">Email</label>
+        <%= text_input f, :email, class: "form-control" , placeholder: "email address", required: "required"%>
+        <%= error_tag f, :email %>
+      </div>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="form">Date of birth</label>
+        <%= date_input f, :dob, class: "form-control" , placeholder: "Date of birth",required: "required"%>
+        <%= error_tag f, :dob %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="form">National ID</label>
+        <%= text_input f, :nationalid, class: "form-control" , placeholder: "National ID",required: "required"%>
+        <%= error_tag f, :nationalid %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="form">Title of staff</label>
+        <%= text_input f, :title, class: "form-control" , placeholder: "Title of staff"%>
+        <%= error_tag f, :title %>
+      </div>
+    </div>
+
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="res" class="form">Estate assigned to </label>
+          <%= select f, :estate, @estate, class: "single_select", style: "width:100%;", title: "Choose item" , required: "required"%>
+
+        <%= error_tag f, :estate %>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="res" class="form">Place of residence</label>
+              <%= text_input f, :residence, class: "form-control" , placeholder: "Place of residence"%>
+        <%= error_tag f, :type %>
+        </div>
+      </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+          <label for="res" class="form">Staff ID</label>
+        <%= text_input f, :serial, class: "form-control" , placeholder: "serial" %>
+
+        <%= error_tag f, :serial %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="reg" class="form">Phone</label>
+        <%= text_input f, :phone, class: "form-control" , placeholder: "Phone number",required: "required"%>
+        <%= error_tag f, :phone %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+          <label for="res" class="form">Staff passcode</label>
+        <%= number_input f, :passcode, class: "form-control" , placeholder: "xxxx" %>
+
+        <%= error_tag f, :passcode %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+          <%= label f, :"Status   ", class: "form-group" %> 	&nbsp;	&nbsp;
+          <%= checkbox f, :active , class: "material-inputs chk-col-red"%>
+      </div>
+     <%= error_tag f, :active %>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="desc" class="form">Description</label>
+        <%= textarea f, :description,  placeholder: "Extra description", class: "form-control" %>
+        <%= error_tag f, :description %>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="col-md-12">
+      <div class="form-group">
+     <%= label f, :"Upload a photo", class: "form-group"%>
+      <%= live_file_input @uploads.photo %>
+    </div>
+    </div>
+      <%= for {_ref, msg} <- @uploads.photo.errors do %>
+      <p class="alert alert-danger"> <%= Phoenix.Naming.humanize(msg) %></p>
+      <% end %>
+  <div class="row">
+      <%= for entry <- @uploads.photo.entries do %>
+
+
+          <div class="col-md-3">
+          <div class="">
+            <%= live_img_preview entry, height: 100%>
+          </div>
+          <div class="">
+            <progress max="100" value={ entry.progress }/>
+          </div>
+          <div class="">
+            <h4><a href="#" phx-click="cancel-entry" phx-value-ref={ entry.ref } phx-target={ @myself }>Cancel</a></h4>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+
+    <div class="col-md-10">
+      <div class="form-group">
+      <%= submit "Submit", class: "btn btn-info" , phx_disable_with: "Saving..." %>
+    </div>
+      </div>
+
+    </div>
+
+
+  </.form>
+
+  </div>
+</div>

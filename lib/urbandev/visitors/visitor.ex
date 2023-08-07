@@ -24,7 +24,7 @@ defmodule Urbandev.Visitors.Visitor do
   def changeset(visitor, attrs) do
     visitor
     |> cast(attrs, [:names, :phone, :nationalid, :visiting, :description ,:time, :type, :serial, :image, :active, :user_id])
-    |> validate_required([:names, :phone, :nationalid, :visiting, :time, :serial, :active])
+    |> validate_required([:names, :phone, :nationalid, :visiting, :time, :serial])
     |> unique_constraint(:phone)
     |> unique_constraint(:serial)
   end

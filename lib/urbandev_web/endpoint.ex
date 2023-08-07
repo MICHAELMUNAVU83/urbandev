@@ -7,12 +7,11 @@ defmodule UrbandevWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_urbandev_key",
-    signing_salt: "UUxjZFT4"
+    signing_salt: "UUxjZFT4",
+    secure: true
   ]
 
-  socket "/socket", UrbandevWeb.UserSocket,
-    websocket: true,
-    longpoll: false
+
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 

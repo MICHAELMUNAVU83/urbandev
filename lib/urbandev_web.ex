@@ -24,6 +24,7 @@ defmodule UrbandevWeb do
       import Plug.Conn
       import UrbandevWeb.Gettext
       alias UrbandevWeb.Router.Helpers, as: Routes
+
     end
   end
 
@@ -38,6 +39,7 @@ defmodule UrbandevWeb do
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
       # Include shared imports and aliases for views
+      
       unquote(view_helpers())
     end
   end
@@ -55,7 +57,7 @@ defmodule UrbandevWeb do
     quote do
       use Phoenix.LiveView,
         layout: {UrbandevWeb.LayoutView, "live.html"}
-
+	 import Phoenix.Component
       unquote(view_helpers())
     end
   end
@@ -91,8 +93,8 @@ defmodule UrbandevWeb do
       use Phoenix.HTML
 
       # Import LiveView helpers (live_render, live_component, live_patch, etc)
-      import Phoenix.LiveView.Helpers
-      import UrbandevWeb.LiveHelpers
+     
+       import Phoenix.Component
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View

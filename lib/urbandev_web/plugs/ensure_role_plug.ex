@@ -17,9 +17,14 @@ alias Urbandev.Accounts
      |> maybe_halt(conn)
 
        assign(conn, :current_user, user_token && Accounts.get_user_by_session_token(user_token))
-
+       assign(conn,  :remote_ip, conn.remote_ip )
 
   end
+
+  def put_client_ip(conn, _) do
+    conn |> Plug.Conn.assign(:remote_ip, conn.remote_ip)
+  end
+
   defp has_role?(%User{} = user, roles) when  is_list(roles) do
    Enum.any?(roles, &has_role?(user, &1))
   end

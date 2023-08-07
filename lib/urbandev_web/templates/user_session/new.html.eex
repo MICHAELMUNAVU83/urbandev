@@ -4,12 +4,12 @@
       <div class="card login-card" style="background:white;opacity: 0.97;">
         <div class="row">
           <div class="col-md-5">
-            <img src="<%= Routes.static_path(@conn, "/images/jasusi.png") %>" style="width: 285px;height: auto;margin-left:145px;margin-top:145px;"  alt="login" class="login-card-img"/>
+            <img src= "<%=Routes.static_path(@conn, "/images/datem_logo.png")  %>" style="width: 285px;height: auto;margin-left:145px;margin-top:100px;"  alt="login" class="login-card-img"/>
           </div>
           <div class="col-md-7">
             <div class="card-body">
               <div class="brand-wrapper">
-                <!-- <img src="<%= Routes.static_path(@conn, "/images/logo.svg") %>" alt="logo" class="logo"> -->
+                <!-- <img src= "<%=Routes.static_path(@conn, "/images/logo.svg")  %>" alt="logo" class="logo"> -->
               </div>
               <p class="login-card-description">Sign into your account</p>
 

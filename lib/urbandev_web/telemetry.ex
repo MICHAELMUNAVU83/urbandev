@@ -31,11 +31,27 @@ defmodule UrbandevWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("urbandev.repo.query.total_time", unit: {:native, :millisecond}),
-      summary("urbandev.repo.query.decode_time", unit: {:native, :millisecond}),
-      summary("urbandev.repo.query.query_time", unit: {:native, :millisecond}),
-      summary("urbandev.repo.query.queue_time", unit: {:native, :millisecond}),
-      summary("urbandev.repo.query.idle_time", unit: {:native, :millisecond}),
+      summary("dataproc.repo.query.total_time",
+        unit: {:native, :millisecond},
+        description: "The sum of the other measurements"
+      ),
+      summary("dataproc.repo.query.decode_time",
+        unit: {:native, :millisecond},
+        description: "The time spent decoding the data received from the database"
+      ),
+      summary("dataproc.repo.query.query_time",
+        unit: {:native, :millisecond},
+        description: "The time spent executing the query"
+      ),
+      summary("dataproc.repo.query.queue_time",
+        unit: {:native, :millisecond},
+        description: "The time spent waiting for a database connection"
+      ),
+      summary("dataproc.repo.query.idle_time",
+        unit: {:native, :millisecond},
+        description:
+          "The time the connection spent waiting before being checked out for the query"
+      ),
 
       # VM Metrics
       summary("vm.memory.total", unit: {:byte, :kilobyte}),

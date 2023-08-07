@@ -1,0 +1,77 @@
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+            <li class="breadcrumb-item active">Access</li>
+        </ol>
+    </div>
+
+</div>
+<div class="row">
+  <%= if @current_user.role == "user" do %>
+
+  <% else %>
+  <div class="col-md-12">
+    <span><%= live_patch "New entry", to: Routes.acc_index_path(@socket, :new),style: "color:white;", class: "btn btn-success fa fa-plus "%></span>
+
+  </div>
+
+  <% end %>
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, UrbandevWeb.AccLive.FormComponent,
+    id: @acc.id || :new,
+    title: @page_title,
+    action: @live_action,
+    user: @current_user,
+    acc: @acc,
+    return_to: Routes.acc_index_path(@socket, :index) %>
+
+<% end %>
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-block">
+<table>
+  <thead>
+    <tr>
+      <th>2D Code</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Idnumber</th>
+      <th>Location</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="acc">
+    <%= for acc <- @acc_collection do %>
+      <tr id={"acc-#{acc.id}"}>
+        <td>  <img src={Routes.static_path(@socket, "/images/access/#{acc.code}.png")} width = "90" alt={"qrcode-#{acc.id}"}></td>
+        <td><%= acc.name %></td>
+        <td><%= acc.phone %></td>
+        <td><%= acc.idnumber %></td>
+        <td><%= acc.location %></td>
+        <td><%= acc.description %></td>
+
+        <td>
+
+
+          <span  rel="tooltip" title="Edit Task" style="font-size: 24px;">
+             <span ><%= live_patch "", to: Routes.acc_index_path(@socket, :edit, acc), class: "fa fa-pencil-square" ,style: "color:#66bb6a !important" %></span>
+         </span>
+         <span  rel="tooltip" title="Delete Task" style="font-size: 24px;">
+             <span><%= link "",to: "#", method: :delete, phx_click: "delete", phx_value_id: acc.id, data: [confirm: "Are you sure?"],  class: "fa fa-close", style: "color:#f44336 !important" %></span>
+        </span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+</div>

@@ -4,6 +4,7 @@ defmodule UrbandevWeb.LiveHelpers do
   alias Urbandev.Accounts.User
   alias Urbandev.Accounts
   alias UrbandevWeb.Router.Helpers, as: Routes
+
   # alias Phoenix.Controller
 
   @doc """
@@ -44,8 +45,9 @@ defmodule UrbandevWeb.LiveHelpers do
 
     end
 
-  def live_modal(_socket, component, opts) do
+  def live_modal(socket, component, opts) do
     path = Keyword.fetch!(opts, :return_to)
+    IO.inspect socket
     modal_opts = [id: :modal, return_to: path, component: component, opts: opts]
     live_component( UrbandevWeb.ModalComponent, modal_opts)
   end

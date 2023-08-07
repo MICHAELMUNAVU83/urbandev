@@ -1,0 +1,45 @@
+<h1>Show Acc</h1>
+
+<%= if @live_action in [:edit] do %>
+   <%= live_modal @socket, UrbandevWeb.AccLive.FormComponent,
+    id: @acc.id,
+    title: @page_title,
+    action: @live_action,
+  
+    user: @current_user,
+    acc: @acc,
+    return_to: Routes.acc_show_path(@socket, :show, @acc) %>
+
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @acc.name %>
+  </li>
+
+  <li>
+    <strong>Phone:</strong>
+    <%= @acc.phone %>
+  </li>
+
+  <li>
+    <strong>Idnumber:</strong>
+    <%= @acc.idnumber %>
+  </li>
+
+  <li>
+    <strong>Location:</strong>
+    <%= @acc.location %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @acc.description %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.acc_show_path(@socket, :edit, @acc), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.acc_index_path(@socket, :index) %></span>

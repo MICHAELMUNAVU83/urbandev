@@ -36,7 +36,8 @@ defmodule UrbandevWeb.DashboardLive do
         accounts: Accounts.get_user_count(),
         residents: Residents.get_resident_count(),
         realestates: Realestates.get_realestate_count(),
-        visitors: Visitors.get_visitor_count()
+        visitors: Visitors.get_visitor_count(),
+        myChart: "myChart"
       )
     end
 end

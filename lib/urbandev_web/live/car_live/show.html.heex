@@ -1,0 +1,56 @@
+<h1>Show Car</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, UrbandevWeb.CarLive.FormComponent,
+    id: @car.id,
+    title: @page_title,
+    action: @live_action,
+    car: @car,
+    return_to: Routes.car_show_path(@socket, :show, @car) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @car.description %>
+  </li>
+
+  <li>
+    <strong>Regno:</strong>
+    <%= @car.regno %>
+  </li>
+
+  <li>
+    <strong>Resident:</strong>
+    <%= @car.resident %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @car.type %>
+  </li>
+
+  <li>
+    <strong>Active:</strong>
+    <%= @car.active %>
+  </li>
+
+  <li>
+    <strong>Image:</strong>
+    <%= if is_nil(@car.image) || @car.image |> String.trim() == ""  do %>
+      <img class="card-img-top img-fluid" src="../images/urbandev.png" alt="Card image cap">
+    <% else %>
+        <%= for url <- Poison.decode!(@car.image) do %>
+          <img class="card-img-top img-fluid" src= { url } alt="Car image" style="width: auto;height: 150px;">
+
+        <% end %>
+    <% end %>
+
+
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.car_show_path(@socket, :edit, @car), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.car_index_path(@socket, :index) %></span>

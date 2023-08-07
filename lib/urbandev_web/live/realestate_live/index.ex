@@ -8,7 +8,15 @@ defmodule UrbandevWeb.RealestateLive.Index do
   @impl true
   def mount(_params, session, socket) do
       socket = assign_defaults(session, socket)
-    {:ok, assign(socket, :realestates, list_realestates_user(socket.assigns.current_user))}
+
+      realestates =
+        if socket.assigns.current_user.role == "user" do
+          list_realestates_user(socket.assigns.current_user)
+        else
+          list_realestates()
+        end
+        
+    {:ok, assign(socket, :realestates, realestates)}
   end
 
   @impl true
@@ -51,11 +59,13 @@ defmodule UrbandevWeb.RealestateLive.Index do
 
   end
 
-  # defp list_realestates do
-  #   Realestates.list_realestates()
-  # end
+  defp list_realestates do
+    Realestates.list_realestates()
+  end
   defp list_realestates_user(user) do
   Realestates.list_realestates_user(user.id)
   end
+
+
 
 end

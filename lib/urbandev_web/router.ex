@@ -29,12 +29,18 @@ defmodule UrbandevWeb.Router do
    end
 
   scope "/", UrbandevWeb do
-    pipe_through [:browser]
+    pipe_through [:browser, :fetch_current_user]
     live "/", PageLive, :index
     delete "/users/log_out", UserSessionController, :delete
     get "/users/confirm", UserConfirmationController, :new
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :confirm
+
+    live "/acc", AccLive.Index, :index
+    live "/acc/new", AccLive.Index, :new
+    live "/acc/:id/edit", AccLive.Index, :edit
+    live "/acc/:id", AccLive.Show, :show
+    live "/acc/:id/show/edit", AccLive.Show, :edit
   end
 
 
@@ -89,7 +95,7 @@ defmodule UrbandevWeb.Router do
          live "/bills/:id", BillLive.Show, :show
          live "/bills/:id/show/edit", BillLive.Show, :edit
 
-
+           live "/users/:id", UserLive.Show, :show
 
     get "/users/fetch/settings", UserSettingsController, :edit
     put "/users/fetch/settings", UserSettingsController, :update
@@ -120,6 +126,9 @@ defmodule UrbandevWeb.Router do
     live "/staff/:id", StaffLive.Show, :show
     live "/staff/:id/show/edit", StaffLive.Show, :edit
 
+
+
+
     live "/users", UserLive.Index, :index
     live "/users/new", UserLive.Index, :new
     live "/users/:id/edit", UserLive.Index, :edit
@@ -147,7 +156,7 @@ defmodule UrbandevWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: UrbandevWeb.Telemetry
+      live_dashboard "/telemetric", metrics: UrbandevWeb.Telemetry
     end
   end
 

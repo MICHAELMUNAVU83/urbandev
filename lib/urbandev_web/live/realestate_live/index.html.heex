@@ -1,0 +1,96 @@
+
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Visitor</li>
+                </ol>
+            </div>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+
+        <div class="row">
+
+          <div class="col-md-12">
+            <span><%= live_patch "New estate", to: Routes.realestate_index_path(@socket, :new),style: "color:white;", class: "btn btn-success fa fa-plus "%></span>
+
+          </div>
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, UrbandevWeb.RealestateLive.FormComponent,
+    id: @realestate.id || :new,
+    title: @page_title,
+    action: @live_action,
+    realestate: @realestate,
+    list_city: @list_city,
+    user: @current_user,
+    return_to: Routes.realestate_index_path(@socket, :index) %>
+<% end %>
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-block">
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Country</th>
+      <th>city(County)</th>
+      <th>description</th>
+      <th>Status</th>
+      <th></th>
+
+    </tr>
+  </thead>
+  <tbody id="realestates">
+    <%= for realestate <- @realestates do %>
+      <tr id={"realestate-#{ realestate.id }"}   >
+        <td><%= realestate.name %></td>
+        <td><%= realestate.country %></td>
+        <td><%= realestate.city.city %> (<%= realestate.city.county %>)</td>
+        <td><%= realestate.description %></td>
+        <%= if realestate.status == "true" do %>
+          <td><i class="fa fa-check" style= "color:#66bb6a !important"></i></td>
+        <% else  %>
+        <td><i class="fa fa-close" style= "color:#f44336 !important"></i></td>
+        <% end %>
+
+        <td>
+
+
+           <span  rel="tooltip" title="Edit Task" style="font-size: 20px;">
+               <span><%= live_patch "", to: Routes.realestate_index_path(@socket, :edit, realestate), class: "fa fa-pencil-square" ,style: "color:#66bb6a !important"  %></span>
+
+          </span>
+          <span  rel="tooltip" title="Delete Task" style="font-size: 20px;">
+                <span><%= link "", to: "#", phx_click: "delete", phx_value_id: realestate.id, data: [confirm: "Are you sure?"] ,  class: "fa fa-trash", style: "color:#f44336 !important"%></span>
+
+         </span>
+
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+</div>
+<!-- Row -->
+
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <%= csrf_meta_tag() %>
-  <%= live_title_tag assigns[:page_title] || "Urbandev", suffix: " · Framework" %>
-
+  <%= live_title_tag assigns[:page_title] || "Datem", suffix: " · Framework" %>
+<link rel="icon" href="<%= Routes.static_path(@conn, "/images/datem.ico") %>" type="image/x-icon">
   <!-- <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet"> -->
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/login.css") %>">
@@ -21,11 +21,11 @@
 
 
     <!--This page css - Morris CSS -->
-    <link href="<%= Routes.static_path(@conn, "/css/Chart.min.css") %>" rel="stylesheet">
+    <link href="<%= Routes.static_path(@conn, "/css/Chart.min.css")  %>" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="<%= Routes.static_path(@conn, "/css/style.css") %>" rel="stylesheet">
+    <link href="<%= Routes.static_path(@conn, "/css/style.css")  %>" rel="stylesheet">
     <!-- You can change the theme colors from here -->
-    <link href="<%= Routes.static_path(@conn, "/css/blue.css") %>" id="theme" rel="stylesheet">
+    <link href="<%= Routes.static_path(@conn, "/css/blue.css")  %>" id="theme" rel="stylesheet">
 
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
       <script language="javascript" type="text/javascript">
@@ -43,6 +43,7 @@
 
   }
 </script>
+<%= csrf_meta_tag() %>
 
 </head>
 
